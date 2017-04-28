@@ -1,170 +1,171 @@
-;; (setq x-alt-keysym 'meta)
+(add-to-list 'auto-mode-alist '("\\.md$" . jekyll-markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.html" . jekyll-html-mode))
+
+(defun connect-remote ()
+  (interactive)
+  (dired "/ssh:mininet@mininet-vm:~/"))
 
 (load-file "~/Pond/sword/emacs-start.d/basic.el")
-;; (load-file "~/Pond/sword/emacs-start.d/elisp.el")
-;; (load-file "~/Pond/sword/emacs-start.d/gnu.el")
+(load-file "~/Pond/sword/emacs-start.d/nongnu.el")
 
-;; (load-file "~/Pond/sword/emacs-start.d/nongnu.el")
+(eval-after-load "color-theme"
+  '(progn
+     (color-theme-initialize)
+     (color-theme-aliceblue)))
 
-;; (load-file "~/Pond/sword/emacs-start.d/muse.el")
-;; (load-file "~/Pond/sword/emacs-start.d/audio.el")
+;; (set-face-background 'hl-line "black")
 
-;; ;(put 'set-goal-column 'disabled nil)
-;; (custom-set-variables
-;;   ;; custom-set-variables was added by Custom.
-;;   ;; If you edit it by hand, you could mess it up, so be careful.
-;;   ;; Your init file should contain only one such instance.
-;;   ;; If there is more than one, they won't work right.
-;;  ;'(TeX-PDF-mode t)
-;;  '(TeX-electric-sub-and-superscript t)
-;;  '(TeX-output-view-style (quote (("^dvi$" "" "%(o?)dvips %d -o && evince %f") ("^pdf$" ("^landscape$" "^pstricks$\\|^pst-\\|^psfrag$") "%(o?)dvipdf -t%d -o && xpdf %f") ("^dvi$" ("^\\(?:a5\\(?:comb\\|paper\\)\\)$" "^landscape$") "%(o?)xdvi %dS -paper a5r -s 0 %d") ("^dvi$" "^\\(?:a5\\(?:comb\\|paper\\)\\)$" "%(o?)xdvi %dS -paper a5 %d") ("^dvi$" "^b5paper$" "%(o?)xdvi %dS -paper b5 %d") ("^dvi$" "^letterpaper$" "%(o?)xdvi %dS -paper us %d") ("^dvi$" "^legalpaper$" "%(o?)xdvi %dS -paper legal %d") ("^dvi$" "^executivepaper$" "%(o?)xdvi %dS -paper 7.25x10.5in %d") ("^dvi$" "." "%(o?)xdvi %dS %d") ("^pdf$" "." "xpdf -remote %s -raise %o %(outpage)") ("^html?$" "." "netscape %o"))))
-;;  '(TeX-view-style (quote (("^\\(?:a4\\(?:dutch\\|paper\\|wide\\)\\|sem-a4\\)$" "%(o?)dvipdf -t landscape %d -o && xpdf %f") ("^\\(?:a4\\(?:dutch\\|paper\\|wide\\)\\|sem-a4\\)$" "%(o?)xdvi %dS -paper a4 %d") ("^\\(?:a5\\(?:comb\\|paper\\)\\)$" "%(o?)xdvi %dS -paper a5 %d") ("^b5paper$" "%(o?)xdvi %dS -paper b5 %d") ("^letterpaper$" "%(o?)xdvi %dS -paper us %d") ("^legalpaper$" "%(o?)xdvi %dS -paper legal %d") ("^executivepaper$" "%(o?)xdvi %dS -paper 7.25x10.5in %d") ("^landscape$" "%(o?)xdvi %dS -paper a4r -s 0 %d") ("." "%(o?)xdvi %dS %d"))))
-;;  '(bar-cursor-mode t nil (bar-cursor))
-;;  '(bm-persistent-face (quote bold-italic))
-;;  '(case-fold-search t)
-;;  '(column-number-mode t)
-;; ; '(current-language-environment "Chinese-GB")
-;; ; '(default-input-method "chinese-gb-egg-wnn-py")
-;; ; '(display-battery-mode t)
-;;  '(display-time-mode t)
-;;  '(fringe-mode 0 nil (fringe))
-;;  '(global-font-lock-mode t nil (font-lock))
-;;  '(highlight-current-line-globally t nil (highlight-current-line))
-;;  '(jde-mode-abbreviations (append (quote (("as" . "assert") ("nen" . "!= null;") ("et" . "\\elemtype") ("ev" . "\\everything") ("exi" . "\\exists") ("fo" . "\\fields_of") ("fa" . "\\forall") ("fr" . "\\fresh") ("invf" . "\\invariant_for") ("ii" . "\\is_initialized") ("lbln" . "\\lblneg") ("lblp" . "\\lblpos") ("ls" . "\\lockset") ("max" . "\\max") ("min" . "\\min") ("nne" . "\\nonnullelements") ("no" . "\\nothing") ("nm" . "\\not_modified") ("ns" . "\\not_specified") ("numo" . "\\num_of") ("old" . "\\old") ("oth" . "\\other") ("prod" . "\\product") ("rea" . "\\reach") ("res" . "\\result") ("sut" . "\\such_that") ("sum" . "\\sum") ("ty" . "\\type") ("to" . "\\typeof") ("TY" . "\\TYPE") ("abb" . "abrupt_behavior") ("accr" . "accessible_redundantly") ("acc" . "accessible") ("al" . "also") ("ar" . "assert_redundantly") ("assir" . "assignable_redundantly") ("assi" . "assignable") ("assr" . "assume_redundantly") ("ass" . "assume") ("ax" . "axiom") ("be" . "behavior") ("brr" . "breaks_redundantly") ("brks" . "breaks") ("cr" . "callable_redundantly") ("cal" . "callable") ("ci" . "choose_if") ("dr" . "decreases_redundantly") ("dcs" . "decreases") ("dcr" . "decreasing_redundantly") ("dc" . "decreasing") ("depr" . "depends_redundantly") ("dep" . "depends") ("divr" . "diverges_redundantly") ("div" . "diverges") ("durr" . "duration_redundantly") ("dur" . "duration") ("enr" . "ensures_redundantly") ("en" . "ensures") ("exam" . "example") ("eb" . "exceptional_behavior") ("ee" . "exceptional_example") ("exsr" . "exsures_redundantly") ("exs" . "exsures") ("forall" . "forall") ("fe" . "for_example") ("gh" . "ghost") ("implt" . "implies_that") ("help" . "helper") ("hbr" . "hence_by_redundantly") ("hb" . "hence_by") ("init" . "initializer") ("ini" . "initially") ("ins" . "instance") ("invr" . "invariant_redundantly") ("inv" . "invariant") ("lir" . "loop_invariant_redundantly") ("li" . "loop_invariant") ("mair" . "maintaining_redundantly") ("mai" . "maintaining") ("mbr" . "measured_by_redundantly") ("mb" . "measured_by") ("mp" . "model_program") ("model" . "model") ("modir" . "modifiable_redundantly") ("modi" . "modifiable") ("modr" . "modifies_redundantly") ("mod" . "modifies") ("mb" . "monitored_by") ("mo" . "monitored") ("nn" . "non_null") ("nb" . "normal_behavior") ("ne" . "normal_example") ("nw" . "nowarn") ("old" . "old") ("or" . "or") ("post" . "post") ("pre" . "pre") ("pure" . "pure") ("ri" . "readable_if") ("ref" . "refine") ("repr" . "represents_redundantly") ("rep" . "represents") ("reqr" . "requires_redundantly") ("req" . "requires") ("rr" . "returns_redundantly") ("rets" . "returns") ("set" . "set") ("sigr" . "signals_redundantly") ("sig" . "signals") ("spr" . "spec_protected") ("spu" . "spec_public") ("stati" . "static_initializer") ("subc" . "subclassing_contract") ("uninit" . "uninitialized") ("unr" . "unreachable") ("weak" . "weakly") ("whr" . "when_redundantly") ("wh" . "when") ("wsr" . "working_space_redundantly") ("ws" . "working_space") ("==>" . "==>") ("<==" . "<==") ("<==>" . "<==>") ("<!>" . "<=!=>") ("->" . "->") ("->" . "<-") (".." . "..") ("{|" . "{|") ("|}" . "|{") ("infdesc" . "(* informal description *)") ("depe" . "depends store-ref-expression <- store-ref-list ;") ("ense" . "ensures Q;") ("exe" . "(\\exists Type t; G(t); P(t));") ("fae" . "(\\forall Type t; G(t); P(t));") ("mode" . "modifies \\everything;") ("modn" . "modifies \\nothing;") ("repe" . "represents store-ref-expression <- spec-expression ;") ("repst" . "represents store-ref-expression \\such_that spec-expression ;") ("reqe" . "requires P;") ("sige" . "signals (Expression e) R;") ("exse" . "exsures (Expression e) R;") ("oe" . "\\old()") ("sume" . "(\\sum Type t, G(t); P(t));") ("prode" . "(\\product Type t, G(t); P(t));") ("maxe" . "(\\max Type t, G(t); P(t));") ("minee" . "(\\min Type t, G(t); P(t));") ("numoe" . "(\\num_of Type t, G(t); P(t));") ("hspec" . "    //@ behavior
-;;    //@   requires P;
-;;     //@   diverges \\not_specified;
-;;     //@   assignable X;
-;;     //@   when \\not_specified;
-;;     //@   ensures Q;
-;;     //@   signals (Exception) R;") ("lspec" . "    //@ requires P;
-;;     //@ assignable X;
-;;     //@ ensures Q;
-;;     //@ signals (Exception) R;") ("pubnhspec" . "    //@ public normal_behavior
-;;     //@   requires P;
-;;     //@   diverges \\not_specified;
-;;     //@   assignable X;
-;;     //@   when \\not_specified;
-;;     //@   ensures Q;") ("pronhspec" . "    //@ protected normal_behavior
-;;     //@   requires P;
-;;     //@   diverges \\not_specified;
-;;     //@   assignable X;
-;;     //@   when \\not_specified;
-;;     //@   ensures Q;") ("prinhspec" . "    //@ private normal_behavior
-;;     //@   requires P;
-;;     //@   diverges \\not_specified;
-;;     //@   assignable X;
-;;     //@   when \\not_specified;
-;;     //@   ensures Q;") ("nhspec" . "    //@ normal_behavior
-;;     //@   requires P;
-;;     //@   diverges \\not_specified;
-;;     //@   assignable X;
-;;     //@   when \\not_specified;
-;;     //@   ensures Q;") ("pubehspec" . "    //@ public exceptional_behavior
-;;     //@   requires P;
-;;     //@   diverges \\not_specified;
-;;     //@   assignable X;
-;;     //@   when \\not_specified;
-;;     //@   signals (Exception) R;") ("proehspec" . "    //@ protected exceptional_behavior
-;;     //@   requires P;
-;;     //@   diverges \\not_specified;
-;;     //@   assignable X;
-;;     //@   when \\not_specified;
-;;     //@   signals (Exception) R;") ("priehspec" . "    //@ private exceptional_behavior
-;;     //@   requires P;
-;;     //@   diverges \\not_specified;
-;;     //@   assignable X;
-;;     //@   when \\not_specified;
-;;     //@   signals (Exception) R;") ("ehspec" . "    //@ exceptional_behavior
-;;     //@   requires P;
-;;     //@   diverges \\not_specified;
-;;     //@   assignable X;
-;;     //@   when \\not_specified;
-;;     //@   signals (Exception) R;"))) jde-mode-abbreviations))
-;; ; '(muse-colors-autogen-headings (quote outline))
-;; ; '(muse-file-extension "muse")
-;; ; '(muse-html-charset-default "utf-8")
-;; ; '(muse-html-encoding-default (quote utf-8))
-;; ; '(muse-html-meta-content-encoding (quote utf-8))
-;; ; '(muse-html-style-sheet "<link rel=\"stylesheet\" type=\"text/css\" charset=\"utf-8\" media=\"all\" href=\"/home/dog/Pond/sword/css-files/common.css\" />")
-;; ; '(muse-mode-auto-p nil nil (muse-project))
-;; ; '(muse-mode-highlight-p t nil (muse-colors))
-;;  '(proof-shrink-windows-tofit t)
-;;  '(save-place t nil (saveplace))
-;;  '(show-paren-mode t nil (paren))
-;;  '(speedbar-use-images nil)
-;;  '(transient-mark-mode t)
-;;  '(uniquify-buffer-name-style (quote forward) nil (uniquify)))
+;; (set-face-background 'hl-line "LightCyan1")
+;; (set-face-background 'hl-line "azure2")
+;; (set-face-background 'hl-line "ivory")
+;; (set-face-background 'hl-line "honeydew1")
+;; (set-face-background 'hl-line "light yellow")
+;; (set-face-background 'hl-line "beige")
+;; (set-face-background 'hl-line "light goldenrod")
+
+;; (set-face-background 'hl-line "wheat1")
+;; (set-face-background 'hl-line "light green")
+;; (set-face-background 'hl-line "LightBlue1")
+;; (set-face-background 'hl-line "peach puff")
+
+;; (set-face-background 'hl-line "gainsboro")
+
+;; (set-face-background 'hl-line "saddle brown")
+;; (set-face-background 'hl-line "SlateGray4")
+;; (set-face-background 'hl-line "turquoise4")
+;; (set-face-background 'hl-line "Pink4")
+;; (set-face-background 'hl-line "HotPink4")
+;; (set-face-background 'hl-line "DarkSlateGray1")
+;; (set-face-background 'hl-line "blue")
+;; (set-face-background 'hl-line "DeepSkyBlue4")
+;; (set-face-background 'hl-line "PaleTurquoise1")
+;; (set-face-background 'hl-line "DodgerBlue4")
+;; (set-face-background 'hl-line "DodgerBlue4")
+;; (set-face-background 'hl-line "RoyalBlue4")
+;; (set-face-background 'hl-line "gray30")
+;; (set-face-background 'hl-line "gray20")
+;; (set-face-background 'hl-line "gray40")
+;; (set-face-background 'hl-line "gray10")
+;; (set-face-background 'hl-line "gray80")
+;; (set-face-background 'hl-line "black")
+;; (set-face-background 'hl-line "blue4")
+;; (set-face-background 'hl-line "selectedKnobColor")
+;; (set-face-background 'hl-line "DeepSkyBlue4")
+;; (set-face-foreground 'highlight nil)
+;; (set-face-background 'hl-line "white")
+;; (set-face-background 'hl-line "CadetBlue4")
+;; (set-face-background 'hl-line "#3e4446")
+
+;; (setq bm-highlight-style 'bm-highlight-only-line)
+;; M-x customize-variable
+
 ;; (custom-set-faces
-;;   ;; custom-set-faces was added by Custom.
-;;   ;; If you edit it by hand, you could mess it up, so be careful.
-;;   ;; Your init file should contain only one such instance.
-;;   ;; If there is more than one, they won't work right.
-;;  '(bm-face ((t (:background "cyan" :foreground "white"))))
-;;  '(bold-italic ((t (:background "cyan" :foreground "white" :slant italic :weight bold))))
-;; ; '(fringe ((t (:background "grey10" :width condensed))))
-;; ; '(highlight-current-line-face ((t (:background "black"))))
-;;  '(highlight-current-line-face ((t (:background "white"))))
-;;  '(mode-line ((t (:background "grey75" :foreground "black"))))
-;;  '(mode-line ((t (:background "grey75" :foreground "gray"))))
-;;  '(region ((t (:background "gray20"))))
-;;  '(region ((t (:background "gray"))))
-;;  '(Show-paren-mismatch ((t (:background "hot pink" :foreground "white"))))
-;;  '(trailing-whitespace ((t (:background "IndianRed")))))
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(bm-face ((t (:background "sea green" :foreground "white"))))
+;;  '(bm-persistent-face ((t (:background "IndianRed1" :foreground "White")))))
 
-;; (put 'upcase-region 'disabled nil)
+;; tex, automatically generated, 2014/06/27 14:57:51
+;; I got lucky and found a solution!
+;; Follow these steps
+;; M-x customize-variable
+;; Emacs gives: Customize variable: Enter: TeX-command-list
+;; Search for View (enter C-s and then type `View)
+;; Emacs will take you to the view command where you can enter text.
+;; It will look something like this (after Command there will be a place for text entry):
+;; [INS] [DEL] Name: View                                                                                 
+;;             Command: open -a Preview.app %s.pdf                                                        
+;;             How: [Value Menu] TeX-run-command                                                          
+;;             Create a process for NAME using COMMAND to process FILE. More                              
+;;             Prompt: [Toggle]  on (non-nil)                                                             
+;;             Modes: [Value Menu] All                                                                    
+;;             Menu elements:                                                                             
+;;             [INS] [DEL] Lisp expression: :help                                                         
+;;             [INS] [DEL] Lisp expression: "Run Text viewer"
+;; Change the text after Command: to whatever you need. This will automatically change your ~/.emacs file.
 
-;; (load-file "~/Pond/sword/emacs-start.d/tex.el")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(TeX-command-list (quote (("TeX" "%(PDF)%(tex) %`%S%(PDFout)%(mode)%' %t" TeX-run-TeX nil (plain-tex-mode texinfo-mode ams-tex-mode) :help "Run plain TeX") ("LaTeX" "%`%l%(mode)%' %t" TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX") ("Makeinfo" "makeinfo %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with Info output") ("Makeinfo HTML" "makeinfo --html %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with HTML output") ("AmSTeX" "%(PDF)amstex %`%S%(PDFout)%(mode)%' %t" TeX-run-TeX nil (ams-tex-mode) :help "Run AMSTeX") ("ConTeXt" "texexec --once --texutil %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt once") ("ConTeXt Full" "texexec %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt until completion") ("BibTeX" "bibtex %s" TeX-run-BibTeX nil t :help "Run BibTeX") ("Biber" "biber %s" TeX-run-Biber nil t :help "Run Biber") ("View" "open -a Preview.app %s.pdf" TeX-run-discard-or-function t t :help "Run Viewer") ("Print" "%p" TeX-run-command t t :help "Print the file") ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command) ("File" "%(o?)dvips %d -o %f " TeX-run-command t t :help "Generate PostScript file") ("Index" "makeindex %s" TeX-run-command nil t :help "Create index file") ("Check" "lacheck %s" TeX-run-compile nil (latex-mode) :help "Check LaTeX file for correctness") ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document") ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files") ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files") ("Other" "" TeX-run-command t t :help "Run an arbitrary command"))))
+ '(bm-buffer-persistence t)
+ '(custom-enabled-themes nil)
+ '(send-mail-function (quote smtpmail-send-it)))
 
-;; (setq tex-dvi-view-command "xdvi")
-;; 		; define the command to view DVI-files
+;; mac-specific key-bindings 2014/06/29 00:15:54
+;; (setq mac-option-modifier 'alt)
+(setq mac-command-modifier 'meta)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(bm-persistent-face ((t (:background "yellow" :foreground "Brown")))))
 
-;; (setq tex-dvi-print-command "dvipdf")
-;; 		; define the command to print DVI-files
+;****************************** AuCTEX *************************
+;; (getenv "PATH")
+;; (setenv "PATH"
+;; 	(concat
+;; 	 "/usr/texbin" ":"
+;; 	 (getenv "PATH")))
 
-;; ; (set-face-background 'highlight-current-line-face "pale goldenrod")
+;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp")
+;; ;; ; (add-to-list 'load-path "/Users/anduo/.emacs.d/elpa/auctex-11.88.2/auctex.el")
 
-;; ;;-------------
-;; ;;Add color to the current GUD line (obrigado google)
-;; (defvar gud-overlay
-;; (let* ((ov (make-overlay (point-min) (point-min))))
-;; (overlay-put ov 'face 'secondary-selection)
-;; ov)
-;; "Overlay variable for GUD highlighting.")
+;; (load-file "/Users/anduo/.emacs.d/init.el")
 
-;; (defadvice gud-display-line (after my-gud-highlight act)
-;; "Highlight current line."
-;; (let* ((ov gud-overlay)
-;; (bf (gud-find-file true-file)))
-;; (save-excursion
-;;   (set-buffer bf)
-;;   (move-overlay ov (line-beginning-position) (line-end-position)
-;;   (current-buffer)))))
 
-;; (defun gud-kill-buffer ()
-;; (if (eq major-mode 'gud-mode)
-;; (delete-overlay gud-overlay)))
+;; (require 'package)
+;; (add-to-list 'package-archives
+;;  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-;; (add-hook 'kill-buffer-hook 'gud-kill-buffer)
-;; ;;-------------------------------------------------------------
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list
+   'package-archives
+   '("melpa" . "http://melpa.org/packages/")
+   t)
+  (package-initialize))
 
-;; ;; research
-;; ;; maude
-;; (autoload 'maude-mode "maude-mode" "MAUDE mode" nil t)
-;; (setq auto-mode-alist
-;;       (append
-;;        (list (cons "\\.maude$"  'maude-mode)
-;;              (cons "\\.fm$"     'maude-mode)
-;;              ;; (cons "\\.other-extensions$"     'maude-mode)
-;;              )
-;;        auto-mode-alist))
+;; (require 'tex-site)
+;; (load "auctex.el" nil t t)
+;; (load "preview-latex.el" nil t t)
 
-;; (setq maude-command "/home/anduo/Desktop/maude/maude.linux64")
+;; find path to pdflatex
+(getenv "PATH")
+(setenv "PATH"
+	(concat
+	 "/usr/texbin" ":"
+	 (getenv "PATH")))
 
-;; ;;; SMV mode
-;; (setq load-path (cons "/home/anduo/Pond/sword/emacs-el-files" load-path))
-;; (autoload 'smv-mode "smv-mode" "SMV specifications editing mode." t)
-;; (setq auto-mode-alist 
-;;       (append  (list '("\\.smv$" . smv-mode) '("\\.ord$" . smv-ord-mode))
-;; 	       auto-mode-alist))
-;; (setq completion-ignored-extensions
-;;       (cons ".ord" (cons ".opt" completion-ignored-extensions)))
+(autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
+(autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot-mode" t)
+(put 'upcase-region 'disabled nil)
+
+
+(defun unwrap-line ()
+      "Remove all newlines until we get to two consecutive ones.
+    Or until we reach the end of the buffer.
+    Great for unwrapping quotes before sending them on IRC."
+      (interactive)
+      (let ((start (point))
+            (end (copy-marker (or (search-forward "\n\n" nil t)
+                                  (point-max))))
+            (fill-column (point-max)))
+        (fill-region start end)
+        (goto-char end)
+        ;; (newline)
+        (goto-char start)))
+
+(global-set-key (kbd "M-q") 'unwrap-line)
+
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
+(add-hook 'yaml-mode-hook
+ '(lambda ()
+    (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
