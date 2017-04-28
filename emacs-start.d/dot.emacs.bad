@@ -1,0 +1,269 @@
+;;;;************ CHINESE SETTING UP ***************
+
+(set-language-environment 'Chinese-GB)
+(set-keyboard-coding-system 'euc-cn)
+(set-clipboard-coding-system 'euc-cn)
+(set-terminal-coding-system 'euc-cn)
+(set-buffer-file-coding-system 'euc-cn)
+(set-selection-coding-system 'euc-cn)
+(modify-coding-system-alist 'process "*" 'euc-cn)
+(setq default-process-coding-system 
+            '(euc-cn . euc-cn))
+(setq-default pathname-coding-system 'euc-cn)
+
+
+
+;;;;*******************  EMACS bs.el ************************************
+(global-set-key "\C-x\C-b" 'bs-show)    ;; or another key
+(global-set-key "\M-P"  'bs-cycle-previous)
+(global-set-key "\M-N"  'bs-cycle-next)
+
+
+
+;********************* BASIC CONFIGURATION ***************************
+(setq search-highlight           t) ; Highlight search object
+(setq query-replace-highlight    t) ; Highlight query objectp
+(setq mouse-sel-retain-highlight t) ; Keep mouse high-lightening
+
+(transient-mark-mode t) ;--为什么不能像Windows下编辑器那样, 高亮显示要拷贝的区域----
+
+(global-font-lock-mode 1)
+
+(setq visible-bell t) ;;-------------------------关闭错误提示的Beep音--------------
+
+(setq column-number-mode t) ;;-------------------------显示列号--------------------------
+(setq line-number-mode t)
+(setq hl-line-mode t)
+
+(show-paren-mode t) 
+(setq show-paren-style 'parentheses) ;;-------------------------括号匹配--------------------------
+
+(setq frame-title-format "%b") ;;-------------------------标题拦显示buffer的名字------------
+
+(tool-bar-mode -1) ;;不要如此大的工具条
+(setq-default make-backup-files nil) ;;不生成临时文件
+(setq inhibit-startup-message t) ;;-------------------------关闭启动时的`开机画面'------------
+
+(fset 'yes-or-no-p 'y-or-n-p) ;;------------用y|n取代 yes|no------------------------
+
+
+
+;****************************** COLOR THEME *************************
+(require 'color-theme)
+(color-theme-subtle-hacker)
+
+
+
+;***************************** SPEED BAR ***************************
+(scroll-bar-mode nil)
+(global-set-key (kbd "C-c s") 'speedbar-get-focus)
+
+
+
+;*****************************desktop and session *********************
+(load "desktop") 
+(desktop-load-default) 
+(desktop-read)
+
+
+
+;********************* INSERT TIME *******************************8
+(defun my-insert-date ()
+  (interactive)
+  (insert (format-time-string "%Y/%m/%d %H:%M:%S" (current-time))))
+
+(global-set-key (kbd "C-c m d") 'my-insert-date)
+
+
+;********************* GLOBAL BINDINGS ************************
+(global-set-key (kbd "<C-^>") 'enlarge-window)
+(global-set-key (kbd "<f9> e") 'eshell)
+(global-set-key (kbd "<f9> s") 'shell)
+(global-set-key (kbd "<f8>") 'other-window)
+
+(global-set-key (kbd "<f9> d") 'kill-buffer)
+(global-set-key (kbd "<f5>") 'ispell-word)
+
+
+
+;;************************ DISPLAY TIME *************
+;(setq display-time-24hr-format t)
+;(setq display-time-day-and-date t)
+;(display-time)
+
+;*********************** bm.el *************************
+;******************* http://www.nongnu.org/bm/ **********
+(load "/home/dog/Pond/sword/emacs-el-files/bm-1.32.el")
+(require 'bm) 
+
+(autoload 'bm-toggle   "bm" "Toggle bookmark in current buffer." t)
+(autoload 'bm-next     "bm" "Goto bookmark."                     t)
+(autoload 'bm-previous "bm" "Goto previous bookmark."            t)
+
+(global-set-key (kbd "<C-f2>") 'bm-toggle)
+;(global-set-key (kbd "<f26>") 'bm-toggle)
+(global-set-key (kbd "<f2>")   'bm-next)
+(global-set-key (kbd "<S-f2>") 'bm-previous)
+;(global-set-key (kbd "<f14>") 'bm-previous)
+(custom-set-variables
+  ;; custom-set-variables was added by Custom -- don't edit or cut/paste it!
+  ;; Your init file should contain only one such instance.
+ '(bm-persistent-face (quote bold-italic))
+ '(case-fold-search t)
+ '(current-language-environment "Chinese-GB")
+ '(default-input-method "chinese-py-punct")
+ '(global-font-lock-mode t nil (font-lock))
+ '(jde-mode-abbreviations (append (quote (("as" . "assert") ("nen" . "!= null;") ("et" . "\\elemtype") ("ev" . "\\everything") ("exi" . "\\exists") ("fo" . "\\fields_of") ("fa" . "\\forall") ("fr" . "\\fresh") ("invf" . "\\invariant_for") ("ii" . "\\is_initialized") ("lbln" . "\\lblneg") ("lblp" . "\\lblpos") ("ls" . "\\lockset") ("max" . "\\max") ("min" . "\\min") ("nne" . "\\nonnullelements") ("no" . "\\nothing") ("nm" . "\\not_modified") ("ns" . "\\not_specified") ("numo" . "\\num_of") ("old" . "\\old") ("oth" . "\\other") ("prod" . "\\product") ("rea" . "\\reach") ("res" . "\\result") ("sut" . "\\such_that") ("sum" . "\\sum") ("ty" . "\\type") ("to" . "\\typeof") ("TY" . "\\TYPE") ("abb" . "abrupt_behavior") ("accr" . "accessible_redundantly") ("acc" . "accessible") ("al" . "also") ("ar" . "assert_redundantly") ("assir" . "assignable_redundantly") ("assi" . "assignable") ("assr" . "assume_redundantly") ("ass" . "assume") ("ax" . "axiom") ("be" . "behavior") ("brr" . "breaks_redundantly") ("brks" . "breaks") ("cr" . "callable_redundantly") ("cal" . "callable") ("ci" . "choose_if") ("dr" . "decreases_redundantly") ("dcs" . "decreases") ("dcr" . "decreasing_redundantly") ("dc" . "decreasing") ("depr" . "depends_redundantly") ("dep" . "depends") ("divr" . "diverges_redundantly") ("div" . "diverges") ("durr" . "duration_redundantly") ("dur" . "duration") ("enr" . "ensures_redundantly") ("en" . "ensures") ("exam" . "example") ("eb" . "exceptional_behavior") ("ee" . "exceptional_example") ("exsr" . "exsures_redundantly") ("exs" . "exsures") ("forall" . "forall") ("fe" . "for_example") ("gh" . "ghost") ("implt" . "implies_that") ("help" . "helper") ("hbr" . "hence_by_redundantly") ("hb" . "hence_by") ("init" . "initializer") ("ini" . "initially") ("ins" . "instance") ("invr" . "invariant_redundantly") ("inv" . "invariant") ("lir" . "loop_invariant_redundantly") ("li" . "loop_invariant") ("mair" . "maintaining_redundantly") ("mai" . "maintaining") ("mbr" . "measured_by_redundantly") ("mb" . "measured_by") ("mp" . "model_program") ("model" . "model") ("modir" . "modifiable_redundantly") ("modi" . "modifiable") ("modr" . "modifies_redundantly") ("mod" . "modifies") ("mb" . "monitored_by") ("mo" . "monitored") ("nn" . "non_null") ("nb" . "normal_behavior") ("ne" . "normal_example") ("nw" . "nowarn") ("old" . "old") ("or" . "or") ("post" . "post") ("pre" . "pre") ("pure" . "pure") ("ri" . "readable_if") ("ref" . "refine") ("repr" . "represents_redundantly") ("rep" . "represents") ("reqr" . "requires_redundantly") ("req" . "requires") ("rr" . "returns_redundantly") ("rets" . "returns") ("set" . "set") ("sigr" . "signals_redundantly") ("sig" . "signals") ("spr" . "spec_protected") ("spu" . "spec_public") ("stati" . "static_initializer") ("subc" . "subclassing_contract") ("uninit" . "uninitialized") ("unr" . "unreachable") ("weak" . "weakly") ("whr" . "when_redundantly") ("wh" . "when") ("wsr" . "working_space_redundantly") ("ws" . "working_space") ("==>" . "==>") ("<==" . "<==") ("<==>" . "<==>") ("<!>" . "<=!=>") ("->" . "->") ("->" . "<-") (".." . "..") ("{|" . "{|") ("|}" . "|{") ("infdesc" . "(* informal description *)") ("depe" . "depends store-ref-expression <- store-ref-list ;") ("ense" . "ensures Q;") ("exe" . "(\\exists Type t; G(t); P(t));") ("fae" . "(\\forall Type t; G(t); P(t));") ("mode" . "modifies \\everything;") ("modn" . "modifies \\nothing;") ("repe" . "represents store-ref-expression <- spec-expression ;") ("repst" . "represents store-ref-expression \\such_that spec-expression ;") ("reqe" . "requires P;") ("sige" . "signals (Expression e) R;") ("exse" . "exsures (Expression e) R;") ("oe" . "\\old()") ("sume" . "(\\sum Type t, G(t); P(t));") ("prode" . "(\\product Type t, G(t); P(t));") ("maxe" . "(\\max Type t, G(t); P(t));") ("minee" . "(\\min Type t, G(t); P(t));") ("numoe" . "(\\num_of Type t, G(t); P(t));") ("hspec" . "    //@ behavior
+   //@   requires P;
+    //@   diverges \\not_specified;
+    //@   assignable X;
+    //@   when \\not_specified;
+    //@   ensures Q;
+    //@   signals (Exception) R;") ("lspec" . "    //@ requires P;
+    //@ assignable X;
+    //@ ensures Q;
+    //@ signals (Exception) R;") ("pubnhspec" . "    //@ public normal_behavior
+    //@   requires P;
+    //@   diverges \\not_specified;
+    //@   assignable X;
+    //@   when \\not_specified;
+    //@   ensures Q;") ("pronhspec" . "    //@ protected normal_behavior
+    //@   requires P;
+    //@   diverges \\not_specified;
+    //@   assignable X;
+    //@   when \\not_specified;
+    //@   ensures Q;") ("prinhspec" . "    //@ private normal_behavior
+    //@   requires P;
+    //@   diverges \\not_specified;
+    //@   assignable X;
+    //@   when \\not_specified;
+    //@   ensures Q;") ("nhspec" . "    //@ normal_behavior
+    //@   requires P;
+    //@   diverges \\not_specified;
+    //@   assignable X;
+    //@   when \\not_specified;
+    //@   ensures Q;") ("pubehspec" . "    //@ public exceptional_behavior
+    //@   requires P;
+    //@   diverges \\not_specified;
+    //@   assignable X;
+    //@   when \\not_specified;
+    //@   signals (Exception) R;") ("proehspec" . "    //@ protected exceptional_behavior
+    //@   requires P;
+    //@   diverges \\not_specified;
+    //@   assignable X;
+    //@   when \\not_specified;
+    //@   signals (Exception) R;") ("priehspec" . "    //@ private exceptional_behavior
+    //@   requires P;
+    //@   diverges \\not_specified;
+    //@   assignable X;
+    //@   when \\not_specified;
+    //@   signals (Exception) R;") ("ehspec" . "    //@ exceptional_behavior
+    //@   requires P;
+    //@   diverges \\not_specified;
+    //@   assignable X;
+    //@   when \\not_specified;
+    //@   signals (Exception) R;"))) jde-mode-abbreviations))
+ '(show-paren-mode t nil (paren))
+ '(transient-mark-mode t)
+ '(uniquify-buffer-name-style (quote forward) nil (uniquify)))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
+  ;; Your init file should contain only one such instance.
+ '(bm-face ((t (:background "cyan" :foreground "white"))))
+ '(bold-italic ((t (:background "cyan" :foreground "white" :slant italic :weight bold)))))
+
+;; make bookmarks persistent as default
+(setq-default bm-buffer-persistence t)
+;; Loading the repository from file when on start up.
+(add-hook' after-init-hook 'bm-repository-load)
+
+;; Restoring bookmarks when on file find.
+(add-hook 'find-file-hooks 'bm-buffer-restore)
+
+;; Saving bookmark data on killing a buffer
+(add-hook 'kill-buffer-hook 'bm-buffer-save)
+
+   ;; Saving the repository to file when on exit.
+   ;; kill-buffer-hook is not called when emacs is killed, so we
+   ;; must save all bookmarks first.
+   (add-hook 'kill-emacs-hook '(lambda nil
+ 	  		             (bm-buffer-save-all)
+			             (bm-repository-save)))
+
+   ;; Update bookmark repository when saving the file.
+   (add-hook 'after-save-hook 'bm-buffer-save)
+
+   ;; Restore bookmarks when buffer is reverted.
+(add-hook 'after-revert-hook 'bm-buffer-restore)
+
+;; Restoring bookmarks when on file find.
+(add-hook 'find-file-hooks 'bm-buffer-restore)
+;; make sure bookmarks is saved before check-in (and revert-buffer)
+(add-hook 'vc-before-checkin-hook 'bm-buffer-save)
+
+   ;; make sure bookmarks is saved before check-in (and revert-buffer)
+   (add-hook 'vc-before-checkin-hook 'bm-buffer-save)
+
+;******************** ido.el*********************
+   (require 'ido)
+   (ido-mode t)
+
+;******************** tabbar *********************
+(load "/home/dog/Pond/sword/emacs-el-files/tabbar.el")
+(require 'tabbar)
+(tabbar-mode)
+
+;(global-set-key (kbd "<C-f2>") 'bm-toggle)
+;(global-set-key (kbd "C-c [") 'tabbar-backward-group)
+;(global-set-key (kbd "<M-f1>") 'tabbar-backward-group)
+(global-set-key (kbd "<f11>") 'tabbar-backward)
+
+;(global-set-key (kbd "C-c ]") 'tabbar-forward-group)
+;(global-set-key (kbd "<M-f2>") 'tabbar-forward-group)
+(global-set-key (kbd "<f12>") 'tabbar-forward)
+
+;(global-set-key (kbd "M-[") 'tabbar-backward)
+(global-set-key (kbd "<M-f11>") 'tabbar-backward-group)
+
+;(global-set-key (kbd "M-]") 'tabbar-forward)
+(global-set-key (kbd "<M-f12>") 'tabbar-forward-group)
+
+
+;**************** MATCH PAREN *******************
+(global-set-key "%" 'match-paren)
+          
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+	(t (self-insert-command (or arg 1)))))
+
+;******************* SHELL **********************
+(shell)
+(rename-buffer "+browser")
+(shell)
+(rename-buffer "+src")
+(shell)
+(rename-buffer "+build")
+(shell)
+(rename-buffer "+test")
+
+;(mapc 'load (directory-files "~/Pond/sword/emacs-start.d/" t "\\.el$"))
+;(load "~/Pond/sword/emacs-start.d/emacs.el")
+
+
+;;;; first level
+;;;;; second level
+
+;; at the end of .emacs
+;;;; outline-mode control variables
+;;4 ';'s at beginning of line makes an index entry
+;;more ';'s nests the entry deeper
+;; Local Variables:
+;; mode: outline-minor
+;; fill-column: 72
+;; line-move-ignore-invisible: t
+;; outline-regexp: ";;;;+"
+;; page-delimiter: "^;;;;"
+;; End:
